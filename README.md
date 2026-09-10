@@ -2,6 +2,889 @@
 
 ---
 
+---
+
+## MÓDULO 42: ASP.NET CORE MVC (continuación)
+
+89. Scaffolding: dotnet aspnet-codegenerator
+90. Scaffolding controllers y views CRUD
+91. Dependency Injection en Controllers
+92. Constructor injection en controllers
+93. Action injection con [FromServices]
+94. Model validation avanzada: IValidatableObject
+95. Custom model binder: IModelBinder
+96. Custom model binder provider
+97. JSON model binding con System.Text.Json
+98. Complex type binding desde query strings
+99. File upload validation (size, type)
+100. Resumen: MVC pipeline completo request-response
+
+---
+
+## MÓDULO 43: RAZOR PAGES Y MINIMAL APIs
+
+**Descripción:** Razor Pages es el modelo de programación page-based de ASP.NET Core, más simple que MVC para aplicaciones centradas en páginas. Minimal APIs es el modelo liviano para construir APIs HTTP con pocas líneas de código. Aprenderás ambos modelos, cuándo usar cada uno, y cómo construir aplicaciones completas con ellos.
+
+1. ¿Qué son Razor Pages y por qué existen?
+2. Razor Pages vs MVC: diferencias fundamentales
+3. Page model: .cshtml + .cshtml.cs
+4. PageModel class como code-behind
+5. OnGet(), OnPost(), OnGetAsync(), OnPostAsync()
+6. Handler methods: OnPostDeleteAsync()
+7. Asp-page-handler en formularios
+8. Routing por convención: /Pages/Users.cshtml → /Users
+9. @page directive en la vista
+10. Route parameters: @page "{id:int}"
+11. Model binding en Razor Pages
+12. [BindProperty] para auto-bind de propiedades
+13. [BindProperty(SupportsGet = true)]
+14. ViewData y TempData en Razor Pages
+15. Return Page() para retornar la misma vista
+16. Return RedirectToPage("Index") para redirigir
+17. Return NotFound() para 404
+18. Return BadRequest() para errores
+19. Partial views en Razor Pages
+20. _ViewImports.cshtml y @addTagHelper
+21. _ViewStart.cshtml para layout
+22. Layouts en Razor Pages
+23. Secciones en Razor Pages
+24. Validation con Data Annotations
+25. Client-side validation en Razor Pages
+26. Page filters: IPageFilter
+27. Async page filters
+28. Areas en Razor Pages
+29. Razor Pages con Entity Framework Core
+30. CRUD completo con Razor Pages y EF Core
+31. Scaffold Razor Pages: dotnet aspnet-codegenerator razorpage
+32. Ajax requests desde Razor Pages
+33. Handler methods para Ajax
+34. Return new JsonResult(data)
+35. Razor Pages con DI
+36. Razor Pages con autorización
+37. [Authorize] en PageModel
+38. [AllowAnonymous] en PageModel
+39. Razor class libraries (.razor compartido)
+40. Blazor vs Razor Pages: cuándo usar cada uno
+41. Minimal APIs: ¿Qué son y por qué?
+42. WebApplication.CreateBuilder(args)
+43. app.MapGet("/", () => "Hello World")
+44. MapGet, MapPost, MapPut, MapDelete, MapPatch
+45. Route parameters: app.MapGet("/users/{id}", (int id) => ...)
+46. Query parameters: ([FromQuery] string name)
+47. Body binding: ([FromBody] User user)
+48. Return types: string, IResult, JsonResult
+49. Results.Ok(), Results.NotFound(), Results.Created()
+50. Results.BadRequest(), Results.Unauthorized()
+51. TypedResults para respuestas tipadas (.NET 7)
+52. IResult interface
+53. Endpoint groups con MapGroup() (.NET 7)
+54. Route groups con prefijo común
+55. Filter endpoints en grupos (.NET 7)
+56. Endpoint metadata: WithName(), WithTags()
+57. WithOpenApi() para documentación (.NET 7)
+58. Produces<T>() para documentar respuestas
+59. ProducesProblem() para errores
+60. Authorization en Minimal APIs
+61. RequireAuthorization()
+62. CORS en Minimal APIs
+63. Rate limiting en Minimal APIs
+64. Output caching en Minimal APIs
+65. Dependency Injection en Minimal APIs
+66. Parameter binding: custom binders
+67. [FromHeader], [FromCookie], [FromForm]
+68. Endpoint filters (.NET 7)
+69. IEndpointFilter para lógica cross-cutting
+70. Validation con endpoint filters
+71. Error handling con exception handler
+72. ProblemDetails en Minimal APIs
+73. Minimal API + Dapper: ejemplo completo
+74. Minimal API + EF Core: ejemplo completo
+75. Structuring Minimal APIs en proyectos grandes
+76. Carter library para modular Minimal APIs
+77. FastEndpoints como alternativa
+78. Vertical Slice Architecture con Minimal APIs
+79. Feature folders
+80. Minimal APIs vs Controllers: tabla comparativa
+81. Cuándo usar Minimal APIs
+82. Cuándo usar Controllers
+83. Migration de Controllers a Minimal APIs
+84. Testing Minimal APIs con WebApplicationFactory
+85. Integration tests con Minimal APIs
+86. HTTP client testing con Minimal APIs
+87. Benchmarking Minimal APIs vs Controllers
+88. Minimal APIs y middleware pipeline
+89. Custom middleware en Minimal APIs
+90. Request/response logging middleware
+91. Correlation ID middleware
+92. Custom exception handling middleware
+93. JWT authentication en Minimal APIs
+94. API key authentication
+95. OAuth2 con Minimal APIs
+96. Health checks en Minimal APIs
+97. SignalR hubs con Minimal APIs
+98. Background services con Minimal APIs
+99. gRPC transcoding con Minimal APIs
+100. Resumen: guía de selección MVC vs Razor Pages vs Minimal APIs
+
+---
+
+## MÓDULO 44: MIDDLEWARE, FILTROS Y PIPELINE
+
+**Descripción:** El pipeline de ASP.NET Core es una cadena de middleware que procesa cada request. Aprenderás a crear, ordenar y encadenar middleware, a entender los filtros de MVC (authorization, action, result, exception), y a construir pipeline personalizado para logging, autenticación, manejo de errores y funcionalidades cross-cutting.
+
+1. ¿Qué es el middleware y cómo funciona?
+2. El pipeline como una cadena de delegados
+3. app.Use() para encadenar middleware
+4. app.Run() para terminal middleware
+5. app.Map() para ramificar el pipeline
+6. app.MapWhen() para ramificación condicional
+7. Orden del middleware: el orden importa
+8. UseRouting() → UseAuthentication() → UseAuthorization() → UseEndpoints()
+9. Crear middleware inline con app.Use()
+10. next() para pasar al siguiente middleware
+11. No llamar next() para short-circuit
+12. Middleware con clase: IMiddleware interface
+13. Middleware con clase: InvokeAsync method
+14. Convention-based middleware: Invoke/InvokeAsync
+15. Constructor injection en middleware
+16. Request delegates y HttpContext
+17. HttpContext.Request para leer el request
+18. HttpContext.Response para escribir la respuesta
+19. HttpContext.Items para datos por request
+20. HttpContext.Features para features del request
+21. Request.EnableBuffering() para re-leer body
+22. ReadToEndAsync() y Seek(0) para re-leer
+23. UseMiddleware<T>() extension method
+24. Inline middleware con MapWhen
+25. UseWhen para ramificación que continúa
+26. Branching pipeline con Map
+27. UseExceptionHandler para errores globales
+28. UseStatusCodePages para páginas de error
+29. StatusCodePages con formato JSON
+30. DeveloperExceptionPage en Development
+31. ExceptionHandlerMiddleware
+32. Crear custom exception handling middleware
+33. ProblemDetails middleware
+34. UseSerilogRequestLogging()
+35. Request logging con timing
+36. Response headers middleware
+37. Security headers middleware
+38. HSTS middleware
+39. HTTPS redirection middleware
+40. CORS middleware
+41. Authentication middleware
+42. Authorization middleware
+43. Rate limiting middleware
+44. Response caching middleware
+45. Output caching middleware
+46. Response compression middleware
+47. Request decompression middleware
+48. Static files middleware
+49. Session middleware
+50. Filtros en MVC y Razor Pages
+51. Tipos de filtros: Authorization, Resource, Action, Exception, Result
+52. Authorization filters: se ejecutan primero
+53. [Authorize] como filtro de autorización
+54. IAuthorizationFilter
+55. IAsyncAuthorizationFilter
+56. Resource filters: OnResourceExecuting/Executed
+57. IResourceFilter para caching
+58. Action filters: OnActionExecuting/Executed
+59. IActionFilter para lógica antes/después del action
+60. IAsyncActionFilter
+61. Exception filters: OnException
+62. IExceptionFilter para manejo de errores por controller
+63. Result filters: OnResultExecuting/Executed
+64. IResultFilter para modificar respuestas
+65. IAsyncResultFilter
+66. Filtro de orden: Order property
+67. Scope: Global, Controller, Action
+68. [ServiceFilter] para filtros con DI
+69. [TypeFilter] para filtros con parámetros
+70. Filter attributes personalizados
+71. Filtros y dependencias inyectadas
+72. Short-circuiting con filtros
+73. Override filters con [OverrideActionFilters]
+74. Disable filters con [DisableCors]
+75. Endpoint filters en Minimal APIs (.NET 7)
+76. IEndpointFilter para Minimal APIs
+77. EndpointFilterFactory
+78. Endpoint metadata
+79. Filtros como atributos vs servicios
+80. Response caching con filtros
+81. Logging con filtros
+82. Performance monitoring con filtros
+83. Validation con filtros en Minimal APIs
+84. Pipeline behavior con MediatR
+85. Pipeline en gRPC
+86. Middleware vs Filters: cuándo usar cada uno
+87. Middleware para cross-cutting global
+88. Filters para lógica de controller/action específica
+89. Ordered middleware
+90. Terminal middleware con Map
+91. Testing middleware con TestServer
+92. Testing filtros con unit tests
+93. Mock HttpContext para testing
+94. DefaultHttpContext para tests
+95. RequestDelegate pipeline
+96. Func<RequestDelegate, RequestDelegate> pattern
+97. Middleware factory
+98. IMiddlewareFactory
+99. Per-request middleware con IMiddleware
+100. Resumen: diseño del pipeline de middleware
+
+---
+
+## MÓDULO 45: AUTENTICACIÓN, AUTORIZACIÓN Y SEGURIDAD
+
+**Descripción:** La seguridad es crítica en cualquier aplicación. Aprenderás a implementar autenticación con JWT tokens, cookies y OAuth2, autorización basada en roles y claims, políticas personalizadas, y las mejores prácticas de seguridad web (CORS, CSRF, XSS, SQL injection, etc.).
+
+1. Autenticación vs Autorización: la diferencia
+2. Claims-based identity en .NET
+3. ClaimsPrincipal y ClaimsIdentity
+4. Claim types: NameIdentifier, Name, Role, Email
+5. HttpContext.User
+6. [Authorize] attribute
+7. [AllowAnonymous] attribute
+8. [Authorize(Roles = "Admin")]
+9. [Authorize(Policy = "RequireAdmin")]
+10. Role-based authorization
+11. Claims-based authorization
+12. Policy-based authorization
+13. AddAuthorization() en servicios
+14. AuthorizationOptions.AddPolicy()
+15. IAuthorizationRequirement
+16. AuthorizationHandler<T>
+17. HandleRequirementAsync
+18. Custom authorization handlers
+19. Resource-based authorization
+20. IAuthorizationService.AuthorizeAsync()
+21. Authorization con Minimal APIs
+22. RequireRole(), RequireClaim()
+23. JWT (JSON Web Tokens) authentication
+24. Estructura de un JWT: Header, Payload, Signature
+25. Instalar: Microsoft.AspNetCore.Authentication.JwtBearer
+26. AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+27. AddJwtBearer() options
+28. TokenValidationParameters
+29. ValidIssuer, ValidAudience, IssuerSigningKey
+30. Generar JWT con JwtSecurityTokenHandler
+31. JwtSecurityToken con claims
+32. SigningCredentials con SecurityKey
+33. SymmetricSecurityKey vs AsymmetricSecurityKey
+34. Access tokens y Refresh tokens
+35. Token refresh pattern
+36. JWT expiration y sliding expiration
+37. JWT revocation strategies
+38. Cookie authentication
+39. AddAuthentication(CookieAuthenticationDefaults.Scheme)
+40. AddCookie() options
+41. LoginPath, LogoutPath, AccessDeniedPath
+42. Cookie options: HttpOnly, Secure, SameSite
+43. External login providers: Google, GitHub, Microsoft
+44. AddGoogle(), AddMicrosoftAccount()
+45. OAuth2 flow en ASP.NET Core
+46. OpenID Connect (OIDC)
+47. AddOpenIdConnect()
+48. IdentityServer / Duende IdentityServer
+49. OAuth2 authorization code flow
+50. OAuth2 client credentials flow
+51. API key authentication
+52. Custom authentication scheme
+53. IAuthenticationHandler
+54. AuthenticationHandler<TOptions>
+55. Multiple authentication schemes
+56. [Authorize(AuthenticationSchemes = "...")]
+57. Default scheme vs specific schemes
+58. ASP.NET Core Identity
+59. IdentityUser y IdentityRole
+60. UserManager, SignInManager, RoleManager
+61. AddIdentity() y AddDefaultIdentity()
+62. IdentityDbContext
+63. Identity migrations
+64. Register, Login, Logout
+65. Password hashing (PBKDF2 by default)
+66. Password requirements configuration
+67. Two-factor authentication (2FA)
+68. Email confirmation
+69. Account lockout
+70. External logins con Identity
+71. User claims management
+72. User roles management
+73. Identity API endpoints (.NET 8)
+74. MapIdentityApi()
+75. CORS: Cross-Origin Resource Sharing
+76. AddCors() con WithOrigins()
+77. AllowAnyOrigin() vs AllowCredentials()
+78. CORS preflight requests
+79. CSRF/XSRF protection
+80. Anti-forgery tokens en MVC
+81. X-Requested-With header
+82. SameSite cookies
+83. XSS: Cross-Site Scripting prevention
+84. Razor HTML encoding automático
+85. @Html.Raw() y sus riesgos
+86. Content Security Policy headers
+87. SQL Injection prevention
+88. Always parameterize queries
+89. Never concatenate SQL strings
+90. HTTPS enforcement
+91. HSTS: HTTP Strict Transport Security
+92. Security headers: X-Content-Type-Options
+93. X-Frame-Options
+94. Referrer-Policy
+95. Permissions-Policy
+96. OWASP Top 10 y ASP.NET Core
+97. Secret management: User Secrets, Azure Key Vault
+98. Data protection API (IDataProtectionProvider)
+99. Rate limiting para prevenir abuso
+100. Resumen: checklist de seguridad para producción
+
+---
+
+## MÓDULO 46: BLAZOR (WEBASSEMBLY Y SERVER)
+
+**Descripción:** Blazor permite construir interfaces de usuario interactivas usando C# en lugar de JavaScript. Aprenderás los dos modelos de hosting (Server y WebAssembly), componentes, routing, estado, formularios, comunicación con APIs, y cómo Blazor se compara con frameworks como React o Angular.
+
+1. ¿Qué es Blazor y por qué usarlo?
+2. Blazor Server vs Blazor WebAssembly
+3. Blazor Hybrid (.NET MAUI)
+4. Blazor United / Auto (.NET 8)
+5. Crear un proyecto Blazor
+6. Componentes Razor: .razor files
+7. Component syntax: <Componente />
+8. Parámetros de componentes: [Parameter]
+9. Cascading parameters: [CascadingParameter]
+10. RenderFragment para contenido hijo
+11. RenderFragment<T> para contenido parametrizado
+12. EventCallback y EventCallback<T>
+13. Two-way binding con @bind
+14. @bind-value y @bind-value:event
+15. Component lifecycle: OnInitialized, OnParametersSet
+16. OnInitializedAsync para carga asíncrona
+17. OnAfterRender y OnAfterRenderAsync
+18. ShouldRender() para controlar re-rendering
+19. StateHasChanged() para forzar actualización
+20. Dispose en componentes: IDisposable
+21. IAsyncDisposable
+22. Routing en Blazor: @page directive
+23. Route parameters: @page "/user/{id}"
+24. NavLink component para navegación
+25. NavigationManager para navegación programática
+26. NavigateTo()
+27. Formularios con EditForm
+28. InputText, InputNumber, InputSelect, InputCheckbox
+29. InputDate, InputTextArea
+30. DataAnnotationsValidator
+31. ValidationSummary y ValidationMessage
+32. OnValidSubmit y OnInvalidSubmit
+33. Custom validation con IValidator
+34. FluentValidation con Blazor
+35. Cascading EditContext
+36. Estado compartido entre componentes
+37. Cascading values para estado
+38. State container pattern
+39. Flux/Redux pattern en Blazor
+40. StateHasChanged y rendering
+41. Protected Browser Storage
+42. ProtectedLocalStorage y ProtectedSessionStorage
+43. Calling APIs con HttpClient
+44. IHttpClientFactory en Blazor
+45. Typed HTTP clients
+46. Error handling en llamadas API
+47. Loading states y skeleton screens
+48. Virtualize component para listas grandes
+49. ErrorBoundary component
+50. MudBlazor: UI component library
+51. Radzen: otra UI library popular
+52. Syncfusion Blazor components
+53. Bootstrap Blazor
+54. MudBlazor: instalar y configurar
+55. Crear layouts en Blazor
+56. MainLayout.razor
+57. @Body en layouts
+58. Nested layouts
+59. CSS isolation: Component.razor.css
+60. JavaScript interop: IJSRuntime
+61. InvokeAsync<T>("functionName")
+62. [JSInvokable] para llamar C# desde JS
+63. IJSObjectReference para módulos JS
+64. Pasar .NET objects a JavaScript
+65. Blazor Server: SignalR connection
+66. Circuit disconnection handling
+67. Prerendering en Blazor Server
+68. Blazor WebAssembly: descarga del runtime
+69. AOT compilation para Blazor WASM
+70. Lazy loading de assemblies
+71. PWA con Blazor WebAssembly
+72. Offline support
+73. Blazor Hybrid con .NET MAUI
+74. Shared Razor class library
+75. Authentication en Blazor
+76. AuthorizeView component
+77. [Authorize] attribute en pages
+78. CascadingAuthenticationState
+79. JWT authentication en Blazor WASM
+80. Cookie authentication en Blazor Server
+81. Blazor y SignalR en tiempo real
+82. Real-time notifications
+83. Blazor Server interactivity en .NET 8
+84. Interactive Server Render Mode
+85. Interactive WebAssembly Render Mode
+86. Auto render mode
+87. Static server-side rendering
+88. Streaming rendering
+89. Enhanced form handling
+90. Blazor .NET 8 unified model
+91. SSR + interactivity
+92. Testing Blazor components con bUnit
+93. bUnit: Arrange, Act, Assert
+94. RenderComponent<T>()
+95. Find(), FindAll()
+96. Click(), Input()
+97. Verify markup
+98. Mock services para testing
+99. Performance: reducir re-rendering
+100. Resumen: Blazor en el ecosistema web moderno
+
+---
+
+## MÓDULO 47: SIGNALR, gRPC Y COMUNICACIÓN EN TIEMPO REAL
+
+**Descripción:** Las aplicaciones modernas necesitan comunicación bidireccional en tiempo real. Aprenderás SignalR para WebSockets y notificaciones push, gRPC para comunicación de alto rendimiento entre servicios, y los patrones de comunicación asíncrona que se usan en arquitecturas de microservicios.
+
+1. ¿Qué es comunicación en tiempo real?
+2. HTTP polling vs WebSockets vs SSE
+3. SignalR: ¿Qué es y para qué sirve?
+4. Instalar: Microsoft.AspNetCore.SignalR
+5. Hub class: la base de SignalR
+6. Crear un Hub: heredar de Hub
+7. Métodos del Hub que los clientes llaman
+8. Clients.All para enviar a todos
+9. Clients.Caller para enviar al que llama
+10. Clients.Others para enviar a los demás
+11. Clients.Group(nombre) para enviar a un grupo
+12. Groups.AddToGroupAsync()
+13. Groups.RemoveFromGroupAsync()
+14. Clients.User(userId) para enviar a un usuario
+15. Clients.Users(userIds) para múltiples usuarios
+16. Hub connection lifecycle: OnConnectedAsync, OnDisconnectedAsync
+17. HubContext para enviar desde fuera del Hub
+18. IHubContext<THub>
+19. Strongly-typed hubs con interfaces
+20. Hub<T> con interfaz tipada
+21. Configurar SignalR: AddSignalR(), MapHub<T>()
+22. Transport negotiation: WebSockets, SSE, Long Polling
+23. Force WebSockets transport
+24. Connection string para Redis backplane
+25. Escalar SignalR con Redis
+26. Azure SignalR Service
+27. Cliente JavaScript: @microsoft/signalr
+28. HubConnectionBuilder en JavaScript
+29. connection.on("methodName", callback)
+30. connection.invoke("serverMethod", args)
+31. Reconnection handling en cliente
+32. Cliente .NET: Microsoft.AspNetCore.SignalR.Client
+33. HubConnection en .NET client
+34. Consume Hub from Blazor
+35. SignalR en aplicaciones de chat
+36. SignalR para notificaciones push
+37. SignalR para dashboards en tiempo real
+38. SignalR para colaboración en vivo
+39. SignalR y autenticación
+40. [Authorize] en Hubs
+41. Context.User en el Hub
+42. gRPC: ¿Qué es y por qué?
+43. gRPC vs REST: diferencias fundamentales
+44. Protocol Buffers (protobuf)
+45. Archivo .proto para definir servicios
+46. Service definition en .proto
+47. Message definition en .proto
+48. Scalar types en protobuf
+49. Repeated fields (listas)
+50. Oneof fields (uniones)
+51. Map fields
+52. Enum en protobuf
+53. Nested messages
+54. Importar .proto files
+55. NuGet: Grpc.Tools
+56. Generar código C# desde .proto
+57. Crear un servicio gRPC en ASP.NET Core
+58. Heredar de ServiceBase generado
+59. Implementar métodos del servicio
+60. Unary RPC: un request, un response
+61. Server streaming: un request, stream de responses
+62. Client streaming: stream de requests, un response
+63. Bidirectional streaming: ambos stream
+64. IAsyncStreamReader<T> para leer streams
+65. IServerStreamWriter<T> para escribir streams
+66. CallContext y CancellationToken
+67. Metadata (headers) en gRPC
+68. Deadlines y timeouts en gRPC
+69. Status codes en gRPC
+70. Error handling con RpcException
+71. gRPC client en .NET
+72. AddGrpcClient<T>() en DI
+73. GrpcChannel.ForAddress()
+74. gRPC client con HttpClient factory
+75. gRPC-Web para navegadores
+76. gRPC-Web proxy en ASP.NET Core
+77. gRPC transcoding a REST (.NET 7)
+78. [HttpRule] en .proto para mapping REST
+79. JSON transcoding
+80. gRPC health checks
+81. gRPC reflection
+82. gRPC y load balancing
+83. gRPC y Kubernetes
+84. gRPC interceptors
+85. gRPC authentication con tokens
+86. gRPC en microservices
+87. gRPC performance benchmarks
+88. gRPC vs REST vs GraphQL: comparativa
+89. Server-Sent Events (SSE) en ASP.NET Core
+90. SSE con Minimal APIs
+91. WebSockets directos en ASP.NET Core
+92. WebSocket middleware
+93. WebSocket manager pattern
+94. MessagePack en SignalR
+95. Custom SignalR protocol
+96. SignalR backplane con Azure SignalR
+97. SignalR y escalabilidad horizontal
+98. Connection management y tracking
+99. Heartbeat y keepalive
+100. Resumen: cuándo usar SignalR vs gRPC vs WebSockets
+
+---
+
+## MÓDULO 48: TESTING - UNIT TESTS, INTEGRATION TESTS Y TDD
+
+**Descripción:** El testing es lo que separa el código profesional del amateur. Aprenderás a escribir unit tests con xUnit, a mockear dependencias con Moq, a escribir integration tests con WebApplicationFactory, a seguir el flujo de TDD, y a medir la cobertura de código. Este módulo transformará tu forma de desarrollar software.
+
+1. ¿Por qué testear software?
+2. Tipos de tests: Unit, Integration, E2E
+3. Testing pyramid: unit tests como base
+4. Arrange, Act, Assert (AAA pattern)
+5. xUnit: el framework de testing de .NET
+6. Crear un proyecto de test: dotnet new xunit
+7. [Fact] para tests individuales
+8. [Theory] para tests parametrizados
+9. [InlineData] para datos de prueba
+10. [MemberData] con datos de miembro
+11. [ClassData] con clases de datos
+12. Assert.Equal, Assert.NotEqual
+13. Assert.True, Assert.False
+14. Assert.Null, Assert.NotNull
+15. Assert.Contains, Assert.DoesNotContain
+16. Assert.Throws<T> para excepciones
+17. Assert.ThrowsAsync<T> para excepciones async
+18. Assert.Single, Assert.Empty, Assert.NotEmpty
+19. Assert.Same, Assert.NotSame
+20. FluentAssertions como alternativa a Assert
+21. .Should().Be(), .Should().NotBeNull()
+22. .Should().BeEquivalentTo()
+23. .Should().Throw<T>()
+24. .Should().HaveCount()
+25. Shouldly como otra alternativa
+26. Moq: framework de mocking
+27. Mock<T> para crear mocks
+28. Setup(m => m.Method()).Returns(value)
+29. Setup con parámetros: It.IsAny<T>()
+30. Setup con parámetros: It.Is<T>(predicate)
+31. Verify para verificar llamadas
+32. Verify(m => m.Method(), Times.Once)
+33. Times: Once, Never, AtLeast, AtMost
+34. MockBehavior.Strict vs Loose
+35. Callback para interceptar llamadas
+36. ReturnsAsync para métodos async
+37. ThrowsAsync para simular errores
+38. Mock de interfaces
+39. Mock de clases concretas
+40. Mock de propiedades
+41. Mock de eventos
+42. SetupSequence para múltiples retornos
+43. NSubstitute como alternativa a Moq
+44. Substitute.For<IService>()
+45. .Returns() y .Received()
+46. FakeItEasy como otra alternativa
+47. Test fixtures en xUnit: IClassFixture<T>
+48. IDisposable para cleanup en tests
+49. IAsyncLifetime para setup/async cleanup
+50. Collection fixtures para compartir contexto
+51. Test order en xUnit
+52. Parallel test execution
+53. Test categories con [Trait]
+54. Skip tests con [Fact(Skip = "reason")]
+55. TDD: Test-Driven Development
+56. Red → Green → Refactor cycle
+57. Escribir el test primero (Red)
+58. Escribir el código mínimo para pasar (Green)
+59. Refactorizar manteniendo los tests verdes
+60. TDD example: calculadora
+61. TDD example: validación de email
+62. TDD example: FizzBuzz
+63. TDD example: Kata de Roman Numerals
+64. Outside-in TDD
+65. Inside-out TDD
+66. London school vs Detroit school
+67. Integration tests con WebApplicationFactory<T>
+68. Crear WebApplicationFactory en tests
+69. HttpClient from factory
+70. Override services en tests
+71. Replace DI registrations con mocks
+72. Testing API endpoints con integration tests
+73. Testing database con integration tests
+74. InMemory database provider para tests
+75. SQLite in-memory para tests
+76. Testcontainers para tests con Docker
+77. Respawn para resetear database entre tests
+78. Testing middleware
+79. Testing authorization
+80. Testing SignalR hubs
+81. Testing Blazor components con bUnit
+82. Mocking HttpClient con HttpMessageHandler
+83. Mocking external APIs
+84. WireMock.Net para mock de APIs HTTP
+85. Test doubles: Dummy, Stub, Mock, Fake, Spy
+86. Cobertura de código: coverlet
+87. dotnet test /p:CollectCoverage=true
+88. ReportGenerator para reportes de cobertura
+89. Cobertura objetivo: 80%+
+90. Branch coverage vs line coverage
+91. SonarQube para análisis continuo
+92. Mutation testing con Stryker
+93. Stryker: mutar código y verificar tests
+94. Mutation score como métrica
+95. Naming conventions para tests
+96. Method_Scenario_ExpectedBehavior
+97. Should_ExpectedBehavior_When_Condition
+98. Tests como documentación viva
+99. Test smell: tests que son difíciles de leer
+100. Resumen: estrategia de testing para un proyecto real
+
+---
+
+## MÓDULO 49: PRINCIPIOS SOLID, PATRONES DE DISEÑO Y CLEAN CODE
+
+**Descripción:** Los principios SOLID y los patrones de diseño son la base del código mantenible y escalable. Aprenderás los cinco principios SOLID aplicados a C#, los patrones de diseño del Gang of Four más utilizados, arquitectura limpia, y cómo aplicar estos conceptos en proyectos reales.
+
+1. ¿Qué es Clean Code y por qué importa?
+2. Clean Code de Robert C. Martin
+3. Convenciones de nombres significativos
+4. Funciones pequeñas y con un propósito
+5. Comentarios: cuándo sí y cuándo no
+6. Formateo y estructura del código
+7. Manejo de errores limpio
+8. DRY: Don't Repeat Yourself
+9. KISS: Keep It Simple, Stupid
+10. YAGNI: You Aren't Gonna Need It
+11. Principio de menor sorpresa
+12. Tell, Don't Ask
+13. Law of Demeter
+14. Single Responsibility Principle (SRP)
+15. SRP: una clase, una razón para cambiar
+16. SRP en la práctica: separar concerns
+17. SRP y servicios: UserService vs EmailService
+18. Open/Closed Principle (OCP)
+19. OCP: abierto para extensión, cerrado para modificación
+20. OCP con herencia
+21. OCP con composición e interfaces
+22. OCP con Strategy pattern
+23. Liskov Substitution Principle (LSP)
+24. LSP: un subtipo debe sustituir a su base
+25. LSP: violaciones comunes
+26. LSP: precondiciones y postcondiciones
+27. Interface Segregation Principle (ISP)
+28. ISP: interfaces pequeñas y específicas
+29. ISP: no forzar implementaciones innecesarias
+30. Dependency Inversion Principle (DIP)
+31. DIP: depender de abstracciones
+32. DIP: inversiones de dependencia con DI
+33. DIP en la práctica: Repository con interfaz
+34. SOLID aplicado a ASP.NET Core
+35. SOLID aplicado a Entity Framework
+36. SOLID aplicado a Blazor
+37. Strategy Pattern
+38. Strategy con interfaces y DI
+39. Strategy con delegados y lambdas
+40. Observer Pattern
+41. Observer con eventos de C#
+42. Observer con IObservable<T>
+43. Decorator Pattern
+44. Decorator con DI
+45. Decorator para logging
+46. Decorator para caching
+47. Factory Method Pattern
+48. Abstract Factory Pattern
+49. Factory con DI container
+50. Singleton Pattern
+51. Singleton con DI (AddSingleton)
+52. Singleton thread safety
+53. Builder Pattern
+54. Fluent Builder en C#
+55. Builder con genéricos (fluent)
+56. Builder para objetos complejos
+57. Repository Pattern
+58. Repository con EF Core
+59. Repository con Dapper
+60. ¿Es Repository necesario con EF Core?
+61. Unit of Work Pattern
+62. UoW con DbContext
+63. Command Pattern
+64. Command con MediatR
+65. CQRS Pattern
+66. CQRS: separar lectura y escritura
+67. CQRS con EF Core y Dapper
+68. Mediator Pattern
+69. MediatR: IRequest, IRequestHandler
+70. MediatR pipeline behaviors
+71. Chain of Responsibility
+72. Chain of Responsibility con pipeline
+73. Adapter Pattern
+74. Adapter para APIs externas
+75. Façade Pattern
+76. Façade para simplificar subsistemas
+77. Composite Pattern
+78. Composite en Blazor (componentes)
+79. Template Method Pattern
+80. Template Method con clases abstractas
+81. State Pattern
+82. State Pattern con máquina de estados
+83. Specification Pattern
+84. Specification para queries dinámicas
+85. Null Object Pattern
+86. Null Object para eliminar null checks
+87. Circuit Breaker Pattern
+88. Retry Pattern con Polly
+89. Cache-Aside Pattern
+90. Event Sourcing (concepto)
+91. Clean Architecture de Robert C. Martin
+92. Domain, Application, Infrastructure, Presentation
+93. Domain layer: entities, value objects, interfaces
+94. Application layer: use cases, DTOs
+95. Infrastructure layer: EF Core, APIs, email
+96. Presentation layer: controllers, Blazor
+97. Dependency flow: hacia el dominio
+98. Vertical Slice Architecture
+99. Hexagonal Architecture (Ports & Adapters)
+100. Resumen: aplicar principios sin over-engineering
+
+---
+
+## MÓDULO 50: DESPLIEGUE, DOCKER, CI/CD Y CLOUD
+
+**Descripción:** El último módulo te prepara para llevar tu código a producción. Aprenderás a containerizar aplicaciones con Docker, a configurar pipelines de CI/CD con GitHub Actions, a desplegar en Azure y Linux, y las prácticas de DevOps esenciales para un desarrollador senior.
+
+1. ¿Qué es DevOps y por qué es esencial?
+2. CI (Continuous Integration): qué es y por qué
+3. CD (Continuous Delivery) vs CD (Continuous Deployment)
+4. Pipeline de CI/CD conceptual
+5. Docker: ¿Qué es un contenedor?
+6. Contenedores vs Máquinas Virtuales
+7. Dockerfile para aplicaciones .NET
+8. FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+9. Multi-stage builds en Dockerfile
+10. COPY, WORKDIR, RUN, EXPOSE, ENTRYPOINT
+11. Build image: docker build -t miapp .
+12. Run container: docker run -p 8080:8080 miapp
+13. Docker Compose para multi-container
+14. docker-compose.yml para app + database
+15. Services, volumes, networks en Compose
+16. Environment variables en Docker
+17. Docker secrets
+18. Docker health checks
+19. .dockerignore para excluir archivos
+20. Image size optimization: Alpine vs distroless
+21. MCR (Microsoft Container Registry) images
+22. Base images: aspnet, runtime, sdk
+23. Publicar como self-contained vs framework-dependent
+24. Trim unused assemblies
+25. PublishTrimmed para reducir tamaño
+26. Native AOT deployment
+27. dotnet publish -c Release --self-contained
+28. Linux deployment: systemd service
+29. Crear un servicio systemd para .NET
+30. Nginx como reverse proxy en Linux
+31. Configuración de Nginx para Kestrel
+32. Supervisor como alternativa a systemd
+33. GitHub Actions: CI/CD con YAML
+34. Workflow file: .github/workflows/ci.yml
+35. jobs, steps, actions
+36. actions/checkout
+37. actions/setup-dotnet
+38. dotnet restore, build, test
+39. dotnet publish y upload artifact
+40. Deploy a Azure App Service
+41. Deploy a Azure Container Apps
+42. Deploy a Azure Container Instances
+43. Deploy a AWS ECS
+44. Deploy a Google Cloud Run
+45. GitHub Actions: secrets management
+46. GitHub Actions: environment variables
+47. GitHub Actions: matrix builds (multi OS)
+48. GitHub Actions: dependabot alerts
+49. GitHub Actions: code scanning
+50. Azure DevOps Pipelines como alternativa
+51. azure-pipelines.yml
+52. Azure App Service deployment
+53. Azure App Service: configuration
+54. Azure App Service: slots para staging
+55. Azure App Service: auto-scaling
+56. Azure Container Registry (ACR)
+57. Push images a ACR
+58. Azure Container Apps: serverless containers
+59. Azure Kubernetes Service (AKS)
+60. Kubernetes basics: pods, services, deployments
+61. kubectl apply -f deployment.yaml
+62. Kubernetes deployment YAML para .NET
+63. Horizontal Pod Autoscaler
+64. Kubernetes secrets y configmaps
+65. Helm charts para Kubernetes
+66. Azure Functions: serverless compute
+67. Azure Functions: timer triggers
+68. Azure Functions: HTTP triggers
+69. Azure Functions: queue triggers
+70. Durable Functions para workflows
+71. Infrastructure as Code (IaC)
+72. Bicep para Azure
+73. Terraform como alternativa multi-cloud
+74. Pulumi con C# para IaC
+75. Database deployment: EF Core migrations en CI
+76. dotnet ef database update en pipeline
+77. Migration scripts para DBAs
+78. Blue-green deployment
+79. Canary deployment
+80. Rolling updates en Kubernetes
+81. Feature flags para deployment seguro
+82. Health checks en production
+83. Monitoring en production: Application Insights
+84. Structured logging con Serilog a Seq/ELK
+85. Distributed tracing con OpenTelemetry
+86. Grafana dashboards
+87. Alerting con PagerDuty / OpsGenie
+88. Runbooks para incidentes
+89. Post-mortems y mejora continua
+90. Performance testing: k6, JMeter
+91. Load testing en staging
+92. Security scanning en CI: Snyk, OWASP
+93. Dependency scanning
+94. Container scanning: Trivy
+95. Secret scanning
+96. SAST (Static Application Security Testing)
+97. DAST (Dynamic Application Security Testing)
+98. Release management y versioning
+99. Semantic versioning en releases automáticos
+100. Resumen: checklist de producción para una app .NET
+
+---
+
+**Notas finales:**
+
+- Cada módulo está diseñado para tomarse entre **2 y 4 semanas** de estudio con práctica.
+- Los 50 módulos representan un camino de **aproximadamente 2 a 3 años** de estudio constante para alcanzar nivel senior.
+- **No avances al siguiente módulo sin haber practicado el anterior** con código real.
+- Crea un repositorio en GitHub donde vayas subiendo tus ejercicios de cada módulo.
+- Cada tema de cada módulo debería incluir al menos **un ejercicio práctico** que escribas y ejecutes.
+
 ## MÓDULO 1: FUNDAMENTOS DE C# PARA ASP.NET
 
 **Descripción:** Aprenderás los pilares del lenguaje C# que son indispensables antes de tocar cualquier proyecto ASP.NET. Sin estos fundamentos, el framework será incomprensible. Cubriremos desde la sintaxis básica hasta tipos genéricos, delegados y asincronía.
